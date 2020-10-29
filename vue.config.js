@@ -7,10 +7,10 @@ module.exports = {
     // 指定子路径。比如，如果你的应用部署在
     // https://www.foobar.com/my-app/
     // 那么将这个值改为 `/my-app/`
-    publicPath: '/',　　/*这个是我存放在github在线预览的Reader项目*/
-  
+    // 基本路径
+    publicPath: process.env.NODE_ENV === 'production' ? '' : '/',　　/*这个是我存放在github在线预览的Reader项目*/
     // 将构建好的文件输出到哪里（或者说将编译的文件）
-    outputDir: 'dist',
+    outputDir: process.env.NODE_ENV === 'production' ? 'dist' : 'devdist',
   
     // 放置静态资源的地方 (js/css/img/font/...)
     assetsDir: '',
@@ -103,13 +103,13 @@ module.exports = {
       hotOnly: false,
       // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
       proxy: {
-            '/api': {
-                  target: 'http://localhost:8080',
+            '/devApi': {
+                  target: 'https://jwx.cool/index.php/api/index/',
                   changeOrigin: true,
                   secure: false,
                   // ws: true,
                   pathRewrite: {
-                      '^/api': '/static/mock'   // 请求数据路径别名,这里是注意将static/mock放入public文件夹
+                      '^/devApi': ''   // 请求数据路径别名,这里是注意将static/mock放入public文件夹
                   }
             }
      },
